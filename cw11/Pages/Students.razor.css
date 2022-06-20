@@ -1,0 +1,19 @@
+﻿table {
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+img {
+    width: 128px;
+    height: 128px;
+}
+
+.sort-link{
+    cursor:pointer;
+    color:blue;
+    text-decoration:underline;
+}

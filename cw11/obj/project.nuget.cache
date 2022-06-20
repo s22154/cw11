@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "md5lLyK6SudqeWPZBAYnmkGjq6ksrqSUGTqb6X+QMPX/PDtOJrIuL5MiREitOYkjHENI55aphKjCL7T1IP2uBQ==",
+  "success": true,
+  "projectFilePath": "/Users/Dynia/Desktop/Studia/PJATK/APBD/APBD11/cw11/cw11/cw11.csproj",
+  "expectedPackageFiles": [
+    "/Users/Dynia/.nuget/packages/microsoft.netcore.app.host.osx-x64/5.0.17/microsoft.netcore.app.host.osx-x64.5.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}

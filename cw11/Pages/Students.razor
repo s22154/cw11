@@ -1,0 +1,91 @@
+﻿@page "/students" 
+@inject IStudentService StudentService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime js
+
+<h3>Students</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Avatar</th>
+            <th><span class="sort-link" @onclick="@(() => SortTable("FirstName"))">First name</span></th>
+            <th><span class="sort-link" @onclick="@(() => SortTable("LastName"))">Last name</span></th>
+            <th><span class="sort-link" @onclick="@(() => SortTable("BirthDate"))">Birthdate</span></th>
+            <th><span class="sort-link" @onclick="@(() => SortTable("Studies"))">Studies</span></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var stud in StudentsList)
+        {
+        <tr>
+            <td><img src="@stud.Avatar" alt="@stud.FirstName @stud.LastName Avatar" /></td>
+            <td>@stud.FirstName</td>
+            <td>@stud.LastName</td>
+            <td>@stud.BirthDate</td>
+            <td>@stud.Studies</td>
+            <td>
+                <button @onclick="@(() => OpenDetails(stud.IdStudent))">Open details</button>
+                <button @onclick="@(() => Delete(stud.IdStudent))">Delete</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@code {
+    public IEnumerable<Student> StudentsList { get; set; }
+    private bool IsSortedAscending;
+    private string CurrentSortColumn;
+
+    protected override void OnInitialized()
+    {
+        StudentsList = StudentService.GetStudents();
+    }
+
+    private void OpenDetails(int id)
+    {
+        NavigationManager.NavigateTo($"/students/{id}");
+    }
+
+    private async Task Delete(int id)
+    {
+        if(await js.InvokeAsync<bool>("confirm", "Are you sure?"))
+        {
+            StudentService.DeleteStudent(id);
+        }
+    }
+
+    private void SortTable(string columnName)
+    {
+        if (columnName != CurrentSortColumn)
+        {
+            StudentsList = StudentsList.OrderBy(x => x.GetType()
+                .GetProperty(columnName)?.GetValue(x, null))
+                .ToList();
+            CurrentSortColumn = columnName;
+            IsSortedAscending = true;
+        }
+        else
+        {
+            if (IsSortedAscending)
+            {
+                StudentsList = StudentsList.OrderByDescending(x => x.GetType()
+                    .GetProperty(columnName)?.GetValue(x, null))
+                    .ToList();
+            }
+            else
+            {
+                StudentsList = StudentsList.OrderBy(x => x.GetType()
+                    .GetProperty(columnName)?.GetValue(x, null))
+                    .ToList();
+            }
+
+            IsSortedAscending = !IsSortedAscending;
+        }
+    }
+
+}

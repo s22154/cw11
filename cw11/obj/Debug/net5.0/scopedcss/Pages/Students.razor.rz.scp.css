@@ -1,0 +1,19 @@
+table[b-brdw97h89o] {
+    width: 100%;
+}
+
+table[b-brdw97h89o], th[b-brdw97h89o], td[b-brdw97h89o] {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+img[b-brdw97h89o] {
+    width: 128px;
+    height: 128px;
+}
+
+.sort-link[b-brdw97h89o]{
+    cursor:pointer;
+    color:blue;
+    text-decoration:underline;
+}
